@@ -49,6 +49,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
@@ -98,6 +103,13 @@ public class MainJFrame extends javax.swing.JFrame {
         // Step 2: Switch
         splitPane.setRightComponent(createJPanel);
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        ViewJPanel viewJPanel = new ViewJPanel(product);
+        splitPane.setRightComponent(viewJPanel);
+        
+    }//GEN-LAST:event_btnViewActionPerformed
 
     /**
      * @param args the command line arguments

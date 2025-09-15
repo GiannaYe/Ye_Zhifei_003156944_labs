@@ -195,9 +195,6 @@ public class CreateJPanel extends javax.swing.JPanel {
                                     .addComponent(fieldAvali)
                                     .addComponent(fieldPrice)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(lblTitle))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(259, 259, 259)
                         .addComponent(btnSave)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -233,13 +230,17 @@ public class CreateJPanel extends javax.swing.JPanel {
                             .addComponent(fieldShippingCity)
                             .addComponent(fieldShippingZip))))
                 .addGap(87, 87, 87))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitle)
+                .addGap(248, 248, 248))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(78, 78, 78)
                 .addComponent(lblTitle)
-                .addGap(67, 67, 67)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -378,7 +379,23 @@ public class CreateJPanel extends javax.swing.JPanel {
         product.getManufactureShippingAddress().setZipCode(shippingZip);
         
         // Step 3 : set a little pop-up message
-        JOptionPane.showMessageDialog(this, "Successfully Saved!", Sucess,);
+        JOptionPane.showMessageDialog(this, "Successfully Saved!");
+        
+        // Step 4 : clear all textfield
+        fieldName.setText("");
+        fieldName.setText("");
+        fieldDescription.setText("");
+        fieldAvali.setText("");
+        fieldPrice.setText("");
+        fieldManuStreet.setText("");
+        fieldManuUnit.setText("");
+        fieldManuCity.setText("");
+        fieldManuZip.setText("");
+        
+        fieldShippingStreet.setText("");
+        fieldShippingCity.setText("");
+        fieldShippingUnit.setText("");
+        fieldShippingZip.setText("");
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
