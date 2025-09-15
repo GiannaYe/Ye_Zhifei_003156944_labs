@@ -4,6 +4,8 @@
  */
 package UI;
 
+import Model.Product;
+
 /**
  *
  * @author yzf01
@@ -13,8 +15,11 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    Product product;
+    
     public MainJFrame() {
         initComponents();
+        product = new Product();
     }
 
     /**
@@ -37,6 +42,11 @@ public class MainJFrame extends javax.swing.JFrame {
         controlPanel.setBackground(new java.awt.Color(255, 204, 204));
 
         btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnView.setText("View");
 
@@ -80,6 +90,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+        // Step 1: instantiate the CreateJpannel
+        CreateJPanel createJPanel = new CreateJPanel(product);
+        // Step 2: Switch
+        splitPane.setRightComponent(createJPanel);
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments

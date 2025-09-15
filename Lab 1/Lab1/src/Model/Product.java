@@ -13,10 +13,14 @@ public class Product {
     String description;
     String availNum;
     String price;
-    
     Address manufactureAddress;
     Address manufactureShippingAddress;
 
+    public Product() {
+        manufactureAddress = new Address();
+        manufactureShippingAddress = new Address();
+    }
+    
     public String getName() {
         return name;
     }
