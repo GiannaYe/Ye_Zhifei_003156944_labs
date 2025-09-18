@@ -120,6 +120,7 @@ public class CreateJPanel extends javax.swing.JPanel {
 
         buttonGroup1.add(btnYes);
         btnYes.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        btnYes.setSelected(true);
         btnYes.setText("Yes");
         add(btnYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
