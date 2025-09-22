@@ -4,6 +4,10 @@
  */
 package UI.AccountManager;
 
+import Model.AccountDirectory;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Olive
@@ -13,8 +17,15 @@ public class AccountMngWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AccountMngWorkAreaJPanel
      */
-    public AccountMngWorkAreaJPanel() {
+    
+    JPanel userProcessContainer;
+    AccountDirectory acctDirectory;
+    
+    public AccountMngWorkAreaJPanel(JPanel container, AccountDirectory directory) {
         initComponents();
+        
+        userProcessContainer = container;
+        acctDirectory = directory;
     }
 
     /**
@@ -32,11 +43,40 @@ public class AccountMngWorkAreaJPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCreateAcct.setText("Create Account");
+        btnCreateAcct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAcctActionPerformed(evt);
+            }
+        });
         add(btnCreateAcct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
         btnMngAcct.setText("Manage Account");
-        add(btnMngAcct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        btnMngAcct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMngAcctActionPerformed(evt);
+            }
+        });
+        add(btnMngAcct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCreateAcctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAcctActionPerformed
+        // TODO add your handling code here:
+        CreateAccountJPanel panel = new CreateAccountJPanel(userProcessContainer, acctDirectory);
+        userProcessContainer.add("CreateAccountJPanel" , panel);
+        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnCreateAcctActionPerformed
+
+    private void btnMngAcctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngAcctActionPerformed
+        // TODO add your handling code here:
+        
+        ManageAccountsJPanel panel = new ManageAccountsJPanel(userProcessContainer, acctDirectory);
+        userProcessContainer.add("ManagementAccountsJPanel" , panel);
+        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnMngAcctActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

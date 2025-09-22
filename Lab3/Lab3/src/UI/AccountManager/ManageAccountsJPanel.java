@@ -4,6 +4,9 @@
  */
 package UI.AccountManager;
 
+import Model.AccountDirectory;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Olive
@@ -13,8 +16,13 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageAccountsJPanel
      */
-    public ManageAccountsJPanel() {
+    JPanel userProcessContainer;
+    AccountDirectory acctDirectory;
+    
+    public ManageAccountsJPanel(JPanel container, AccountDirectory directory) {
         initComponents();
+        userProcessContainer = container;
+        acctDirectory = directory;
     }
 
     /**

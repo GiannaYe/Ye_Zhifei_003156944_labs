@@ -85,6 +85,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jSplitPane1.setTopComponent(topJPanel);
 
+        userProcessContainer.setBackground(new java.awt.Color(204, 255, 255));
         userProcessContainer.setLayout(new java.awt.CardLayout());
         jSplitPane1.setRightComponent(userProcessContainer);
 
@@ -95,7 +96,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnAccountMngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountMngActionPerformed
         // TODO add your handling code here:
-        AccountMngWorkAreaJPanel panel = new AccountMngWorkAreaJPanel();
+        AccountMngWorkAreaJPanel panel = new AccountMngWorkAreaJPanel(userProcessContainer, acctDirectory);
         userProcessContainer.add("AccountMngWorkAreaJPanel" , panel);
         
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
