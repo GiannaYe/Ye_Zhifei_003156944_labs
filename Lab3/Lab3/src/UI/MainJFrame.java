@@ -4,6 +4,11 @@
  */
 package UI;
 
+import Model.Account;
+import Model.AccountDirectory;
+import UI.AccountManager.AccountMngWorkAreaJPanel;
+import java.awt.CardLayout;
+
 /**
  *
  * @author Olive
@@ -13,8 +18,27 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    
+    private AccountDirectory acctDirectory;
+    
     public MainJFrame() {
         initComponents();
+        this.acctDirectory = new AccountDirectory();
+        generateDemoData(acctDirectory);
+    }
+    
+    private static void generateDemoData(AccountDirectory accountDirectory) {
+        Account newAccount = accountDirectory.addAccount();
+        newAccount.setAccountNumber("4444444444");
+        newAccount.setRoutingNumber("0011223344");
+        newAccount.setBankName("Bank of America");
+        newAccount.setBalance(200);
+
+        Account anotherNewAccount = accountDirectory.addAccount();
+        anotherNewAccount.setAccountNumber("55555555555");
+        anotherNewAccount.setRoutingNumber("0077112234");
+        anotherNewAccount.setBankName("Santander Bank");
+        anotherNewAccount.setBalance(1200);
     }
 
     /**
@@ -26,21 +50,57 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        topJPanel = new javax.swing.JPanel();
+        btnAccountMng = new javax.swing.JButton();
+        userProcessContainer = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        btnAccountMng.setText("Open Account Manager Work Area");
+        btnAccountMng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountMngActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout topJPanelLayout = new javax.swing.GroupLayout(topJPanel);
+        topJPanel.setLayout(topJPanelLayout);
+        topJPanelLayout.setHorizontalGroup(
+            topJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topJPanelLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(btnAccountMng, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(567, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        topJPanelLayout.setVerticalGroup(
+            topJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topJPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btnAccountMng)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
+
+        jSplitPane1.setTopComponent(topJPanel);
+
+        userProcessContainer.setLayout(new java.awt.CardLayout());
+        jSplitPane1.setRightComponent(userProcessContainer);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAccountMngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountMngActionPerformed
+        // TODO add your handling code here:
+        AccountMngWorkAreaJPanel panel = new AccountMngWorkAreaJPanel();
+        userProcessContainer.add("AccountMngWorkAreaJPanel" , panel);
+        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAccountMngActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +138,11 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccountMng;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel topJPanel;
+    private javax.swing.JPanel userProcessContainer;
     // End of variables declaration//GEN-END:variables
+
+    
 }

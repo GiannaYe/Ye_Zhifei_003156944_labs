@@ -26,19 +26,21 @@ public class AccountMngWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        btnCreateAcct = new javax.swing.JButton();
+        btnMngAcct = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCreateAcct.setText("Create Account");
+        add(btnCreateAcct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        btnMngAcct.setText("Manage Account");
+        add(btnMngAcct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreateAcct;
+    private javax.swing.JButton btnMngAcct;
     // End of variables declaration//GEN-END:variables
 }
