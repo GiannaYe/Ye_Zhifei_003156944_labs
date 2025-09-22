@@ -40,6 +40,7 @@ public class AccountMngWorkAreaJPanel extends javax.swing.JPanel {
         btnCreateAcct = new javax.swing.JButton();
         btnMngAcct = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCreateAcct.setText("Create Account");

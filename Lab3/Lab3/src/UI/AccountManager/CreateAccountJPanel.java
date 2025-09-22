@@ -4,7 +4,10 @@
  */
 package UI.AccountManager;
 
+import Model.Account;
 import Model.AccountDirectory;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -71,11 +74,61 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
         add(txtBankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 190, 30));
 
         jButton1.setText("<<< Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         btnCreate.setText("Create Account");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
         add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 380, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+        int balance;
+        
+        String routing = txtRouting.getText();
+        String acctNumber = txtAcctNumber.getText();
+        String bankName = txtBankName.getText();
+        
+        if (routing.isBlank() || acctNumber.isBlank() || acctNumber.isBlank()) {
+            JOptionPane.showMessageDialog(this, "All fields are mandatory.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try {
+            balance = Integer.parseInt(txtBalance.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Please check the balance input.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Account a = acctDirectory.addAccount();
+        a.setRoutingNumber(routing);
+        a.setAccountNumber(acctNumber);
+        a.setBalance(balance);
+        a.setBankName(bankName);
+        
+        JOptionPane.showMessageDialog(this, "Created!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        txtAcctNumber.setText("");
+        txtBalance.setText("");
+        txtBankName.setText("");
+        txtRouting.setText("");
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

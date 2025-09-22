@@ -4,6 +4,10 @@
  */
 package UI.AccountManager;
 
+import Model.AccountDirectory;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Olive
@@ -57,6 +61,11 @@ public class ViewAccountJPanel extends javax.swing.JPanel {
         add(txtBankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 250, 30));
 
         jButton1.setText("<<< Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         btnUpdate.setText("Update");
@@ -65,6 +74,13 @@ public class ViewAccountJPanel extends javax.swing.JPanel {
         btnSave.setText("Save");
         add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
