@@ -63,7 +63,7 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtSearchBox = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,6 +96,11 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 630, 220));
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
         add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
 
         btnView.setText("View Details");
@@ -113,7 +118,7 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
             }
         });
         add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, -1, -1));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 240, 30));
+        add(txtSearchBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 240, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
@@ -157,6 +162,29 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        if (!txtSearchBox.getText().isBlank()) {
+        String accountNumber = txtSearchBox.getText();
+        Account foundAccount = acctDirectory.searchAccount(accountNumber);
+
+        if (foundAccount != null) {
+            ViewAccountJPanel panel = new ViewAccountJPanel(userProcessContainer, acctDirectory, foundAccount);
+            userProcessContainer.add("ViewAccountJPanel", panel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        } else {
+            JOptionPane.showMessageDialog(null, 
+                "Account not found. Please check the account number and try again.");
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, 
+            "Please type the account number to view.", 
+            "Warning", 
+            JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -164,9 +192,9 @@ public class ManageAccountsJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnView;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblManage;
     private javax.swing.JTable tblAccounts;
+    private javax.swing.JTextField txtSearchBox;
     // End of variables declaration//GEN-END:variables
 
     
