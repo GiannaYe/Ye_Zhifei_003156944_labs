@@ -4,8 +4,10 @@
  */
 package UI.AccountManager;
 
+import Model.Account;
 import Model.AccountDirectory;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -17,9 +19,45 @@ public class ViewAccountJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewAccountJPanel
      */
-    public ViewAccountJPanel() {
+    
+    private JPanel userProcessContainer;
+    private AccountDirectory accountDirectory;
+    private Account account;
+    
+    public ViewAccountJPanel(JPanel container, AccountDirectory directory, Account account) {
         initComponents();
+        this.userProcessContainer = container;
+        this.accountDirectory = directory;
+        this.account = account;
+        
+        refreshTextFields();
+        setViewMode();
     }
+    
+    private void refreshTextFields() {
+    txtRouting.setText(account.getRoutingNumber());
+    txtAcctNumber.setText(account.getAccountNumber());
+    txtBankName.setText(account.getBankName());
+}
+
+private void setViewMode() {
+    txtRouting.setEnabled(false);
+    txtAcctNumber.setEnabled(false);
+    txtBankName.setEnabled(false);
+
+    btnSave.setEnabled(false);
+    btnUpdate.setEnabled(true);
+}
+
+private void setEditMode() {
+    txtRouting.setEnabled(true);
+    txtAcctNumber.setEnabled(true);
+    txtBankName.setEnabled(true);
+
+    btnSave.setEnabled(true);
+    btnUpdate.setEnabled(false);
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,9 +107,19 @@ public class ViewAccountJPanel extends javax.swing.JPanel {
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, -1, -1));
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -81,6 +129,37 @@ public class ViewAccountJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        String routingNumber = txtRouting.getText();
+        String accountNumber = txtAcctNumber.getText();
+        String bankName      = txtBankName.getText();
+
+    if (routingNumber.isBlank() || accountNumber.isBlank() || bankName.isBlank()) {
+        JOptionPane.showMessageDialog(null, "All fields are mandatory.");
+        return;
+    }
+
+    account.setRoutingNumber(routingNumber);
+    account.setAccountNumber(accountNumber);
+    account.setBankName(bankName);
+
+    JOptionPane.showMessageDialog(
+        null,
+        "Account successfully updated.",
+        "Warning",
+        JOptionPane.WARNING_MESSAGE
+    );
+
+    setViewMode();
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        setEditMode();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
