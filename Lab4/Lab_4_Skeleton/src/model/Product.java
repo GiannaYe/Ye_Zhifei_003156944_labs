@@ -53,5 +53,19 @@ public class Product {
     public String toString() {
         return name;
     }
+
+    public ArrayList<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(ArrayList<Feature> features) {
+        this.features = features;
+    }
+    
+    public Feature addNewFeature() {
+        Feature feature = new Feature(new Product());
+        features.add(feature);
+        return feature;
+    }
     
 }
