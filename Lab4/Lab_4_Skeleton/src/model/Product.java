@@ -16,6 +16,7 @@ public class Product {
     private String name;
     private int price;
     private int id;
+    private String imagePath;
 
     private ArrayList<Feature> features;
     
@@ -48,6 +49,13 @@ public class Product {
         this.price = price;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
     
     @Override
     public String toString() {

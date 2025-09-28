@@ -10,8 +10,13 @@ import model.Supplier;
 import ui.admin.ManageSuppliers;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -21,6 +26,7 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
 
     Supplier supplier;
     JPanel workArea;
+    private String selectedImagePath;
 
     /**
      * Creates new form CreateProductJPanel
@@ -48,6 +54,9 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblProductName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        lblImage = new javax.swing.JLabel();
+        btnBrowseImage = new javax.swing.JButton();
+        lblImagePreview = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -77,6 +86,19 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
 
         lblProductName.setText("Product Name:");
 
+        lblImage.setText("Product Image:");
+
+        btnBrowseImage.setText("Browse Image");
+        btnBrowseImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrowseImageActionPerformed(evt);
+            }
+        });
+
+        lblImagePreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImagePreview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImagePreview.setText("No Image Selected");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,11 +112,15 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
                         .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPrice)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblImage)
+                                    .addComponent(lblPrice))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnAdd)
-                                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnBrowseImage)
+                                    .addComponent(lblImagePreview, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -129,9 +155,15 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPrice))
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblImage)
+                    .addComponent(btnBrowseImage))
+                .addGap(18, 18, 18)
+                .addComponent(lblImagePreview, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnAdd)
-                .addGap(278, 278, 278))
+                .addGap(100, 100, 100))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -142,6 +174,9 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         if (stringPrice.isEmpty() == false) {
             int price = Integer.parseInt(stringPrice);
             product.setPrice(price);
+        }
+        if (selectedImagePath != null && !selectedImagePath.isEmpty()) {
+            product.setImagePath(selectedImagePath);
         }
         JOptionPane.showMessageDialog(this, "Product successfully added", "Information", JOptionPane.INFORMATION_MESSAGE);
         backAction();
@@ -160,9 +195,31 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
         backAction();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnBrowseImageActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+        
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            selectedImagePath = selectedFile.getAbsolutePath();
+            
+            // Load and display the image
+            ImageIcon imageIcon = new ImageIcon(selectedImagePath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+            lblImagePreview.setIcon(new ImageIcon(scaledImage));
+            lblImagePreview.setText("");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBrowseImage;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblImagePreview;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblProductId;
     private javax.swing.JLabel lblProductName;

@@ -7,8 +7,13 @@ package ui.supplier;
 import model.Product;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.Feature;
 
@@ -20,6 +25,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
 
     JPanel workArea;
     Product product;
+    private String selectedImagePath;
 
     /**
      * Creates new form CreateProductJPanel
@@ -34,6 +40,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         txtPrice.setText(String.valueOf(this.product.getPrice()));
 
         refreshTable();
+        displayProductImage();
     }
 
     /**
@@ -58,6 +65,9 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         tblFeatures = new javax.swing.JTable();
         btnAddFeature = new javax.swing.JButton();
         btnRemoveFeature = new javax.swing.JButton();
+        lblImage = new javax.swing.JLabel();
+        lblImageDisplay = new javax.swing.JLabel();
+        btnChangeImage = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -127,27 +137,48 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
             }
         });
 
+        lblImage.setText("Product Image:");
+
+        lblImageDisplay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImageDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImageDisplay.setText("No Image");
+
+        btnChangeImage.setText("Change Image");
+        btnChangeImage.setEnabled(false);
+        btnChangeImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeImageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddFeature)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRemoveFeature)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnUpdate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddFeature)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemoveFeature)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnUpdate)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSave))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblImage)
+                            .addComponent(lblImageDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChangeImage)))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(backButton1)
                         .addGap(38, 38, 38)
                         .addComponent(lblTitle))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblName)
                         .addGap(18, 18, 18)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,7 +190,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                         .addComponent(lblPrice)
                         .addGap(18, 18, 18)
                         .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtId, txtName});
@@ -182,14 +213,22 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPrice))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnAddFeature)
-                    .addComponent(btnRemoveFeature))
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSave)
+                            .addComponent(btnUpdate)
+                            .addComponent(btnAddFeature)
+                            .addComponent(btnRemoveFeature)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblImage)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblImageDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnChangeImage)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtId, txtName, txtPrice});
@@ -204,6 +243,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         tblFeatures.setEnabled(true);
         btnAddFeature.setEnabled(true);
         btnRemoveFeature.setEnabled(true);
+        btnChangeImage.setEnabled(true);
 
 }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -227,6 +267,9 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         product.setPrice(Integer.parseInt(txtPrice.getText()));
         product.setName(txtName.getText());
+        if (selectedImagePath != null && !selectedImagePath.isEmpty()) {
+            product.setImagePath(selectedImagePath);
+        }
         saveFeatures();
 
         txtName.setEditable(false);
@@ -235,11 +278,12 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         tblFeatures.setEnabled(false);
         btnAddFeature.setEnabled(false);
         btnRemoveFeature.setEnabled(false);
+        btnChangeImage.setEnabled(false);
 
         JOptionPane.showMessageDialog(this, "Product information saved.", "Information", JOptionPane.INFORMATION_MESSAGE);
 
         refreshTable();
-        
+        displayProductImage();
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -297,15 +341,50 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         
     }
 
+    private void displayProductImage() {
+        String imagePath = product.getImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(imagePath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+            lblImageDisplay.setIcon(new ImageIcon(scaledImage));
+            lblImageDisplay.setText("");
+        } else {
+            lblImageDisplay.setIcon(null);
+            lblImageDisplay.setText("No Image");
+        }
+    }
+
+    private void btnChangeImageActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+        
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            selectedImagePath = selectedFile.getAbsolutePath();
+            
+            // Display the new image
+            ImageIcon imageIcon = new ImageIcon(selectedImagePath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+            lblImageDisplay.setIcon(new ImageIcon(scaledImage));
+            lblImageDisplay.setText("");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton1;
     private javax.swing.JButton btnAddFeature;
+    private javax.swing.JButton btnChangeImage;
     private javax.swing.JButton btnRemoveFeature;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblImageDisplay;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblTitle;
