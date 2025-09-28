@@ -24,7 +24,7 @@ public class Product {
     public Product() {
         count++;
         id = count;
-        
+        features = new ArrayList<>();
     }
 
     public String getName() {
@@ -63,7 +63,7 @@ public class Product {
     }
     
     public Feature addNewFeature() {
-        Feature feature = new Feature(new Product());
+        Feature feature = new Feature(this);
         features.add(feature);
         return feature;
     }

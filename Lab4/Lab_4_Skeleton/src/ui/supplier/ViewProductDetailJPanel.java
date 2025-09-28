@@ -246,10 +246,12 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
     private void saveFeatures() {
         DefaultTableModel model = (DefaultTableModel) tblFeatures.getModel();
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            Feature currentFeature = product.getFeatures().get(i);
-            currentFeature.setName(tblFeatures.getValueAt(i, 0).toString());
-            currentFeature.setValue(tblFeatures.getValueAt(i, 1));
+        if (product.getFeatures() != null) {
+            for (int i = 0; i < model.getRowCount(); i++) {
+                Feature currentFeature = product.getFeatures().get(i);
+                currentFeature.setName(tblFeatures.getValueAt(i, 0).toString());
+                currentFeature.setValue(tblFeatures.getValueAt(i, 1));
+            }
         }
     }
 
@@ -284,11 +286,13 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblFeatures.getModel();
         model.setRowCount(0);
 
-        for (Feature f : product.getFeatures()) {
-            Object row[] = new Object[2];
-            row[0] = f;
-            row[1] = f.getValue() == null ? "Empty" : f.getValue().toString();
-            model.addRow(row);
+        if (product.getFeatures() != null) {
+            for (Feature f : product.getFeatures()) {
+                Object row[] = new Object[2];
+                row[0] = f;
+                row[1] = f.getValue() == null ? "Empty" : f.getValue().toString();
+                model.addRow(row);
+            }
         }
         
     }

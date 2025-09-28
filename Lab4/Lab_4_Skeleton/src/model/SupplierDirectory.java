@@ -17,6 +17,7 @@ public class SupplierDirectory {
     
     public SupplierDirectory() {
         supplierList = new ArrayList<Supplier>();
+        demo();
     }
 
     public ArrayList<Supplier> getSupplierList() {
@@ -42,4 +43,9 @@ public class SupplierDirectory {
         return null;
     }
     
+    public final void demo() {
+        Supplier fei = new Supplier();
+        fei.setSupplyName("Fei");
+        supplierList.add(fei);
+    }
 }
