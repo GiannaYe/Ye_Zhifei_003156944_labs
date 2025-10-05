@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UserInterface;
+package UserInterface.WorkAreas.StudentSignUp;
 
 import Business.Business;
 import Business.Person.Person;
@@ -147,7 +147,7 @@ public class SignupJPanel extends javax.swing.JPanel {
 
         UserAccount ua = uaDirectory.newUserAccount(sp, username, password);
 
-        JOptionPane.showMessageDialog(this, "Registration successful! You can now login as a student.");
+        JOptionPane.showMessageDialog(this, "Registration successful!");
 
         CardSequencePanel.removeAll();
         javax.swing.JLabel welcomeLabel = new javax.swing.JLabel();

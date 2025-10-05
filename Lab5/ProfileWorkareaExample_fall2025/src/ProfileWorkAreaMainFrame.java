@@ -195,7 +195,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordTextFieldActionPerformed
 
     private void btnSignUpLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpLoginButtonActionPerformed
-        UserInterface.SignupJPanel signupPanel = new UserInterface.SignupJPanel(business, CardSequencePanel);
+        UserInterface.WorkAreas.StudentSignUp.SignupJPanel signupPanel = new UserInterface.WorkAreas.StudentSignUp.SignupJPanel(business, CardSequencePanel);
         CardSequencePanel.removeAll();
         CardSequencePanel.add("signup", signupPanel);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
