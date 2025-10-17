@@ -50,12 +50,16 @@ public class UserAccount {
         public Profile getAssociatedPersonProfile(){
             return profile;
         }
-        
+
+        public void setProfile(Profile p) {
+            this.profile = p;
+        }
+
     @Override
         public String toString(){
-            
+
             return getUserLoginName();
         }
-        
+
 }
 

@@ -5,7 +5,16 @@
  */
 package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 
+import Business.Business;
+import Business.Person.Person;
+import Business.Profiles.EmployeeDirectory;
+import Business.Profiles.EmployeeProfile;
+import Business.Profiles.FacultyDirectory;
+import Business.Profiles.FacultyProfile;
+import Business.Profiles.StudentDirectory;
+import Business.Profiles.StudentProfile;
 import Business.UserAccounts.UserAccount;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -19,16 +28,25 @@ public class AdminUserAccount extends javax.swing.JPanel {
      * Creates new form ManageSuppliersJPanel
      */
     JPanel CardSequencePanel;
-
     UserAccount selecteduseraccount;
+    Business business;
 
-    public AdminUserAccount(UserAccount sua, JPanel jp) {
-
+    public AdminUserAccount(UserAccount sua, JPanel jp, Business b) {
         CardSequencePanel = jp;
-        selecteduseraccount= sua;
+        selecteduseraccount = sua;
+        business = b;
         initComponents();
-        //display user details here
 
+
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("Student");
+        jComboBox1.addItem("Faculty");
+        jComboBox1.addItem("Admin");
+
+        jComboBox1.setSelectedItem(selecteduseraccount.getRole());
+        if(selecteduseraccount.getRole().equals("Admin")) {
+            jComboBox1.setSelectedItem("Admin");
+        }
     }
 
     /**
@@ -43,6 +61,9 @@ public class AdminUserAccount extends javax.swing.JPanel {
         Back = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         Back1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setLayout(null);
@@ -54,12 +75,12 @@ public class AdminUserAccount extends javax.swing.JPanel {
             }
         });
         add(Back);
-        Back.setBounds(480, 290, 100, 32);
+        Back.setBounds(480, 290, 100, 23);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Administer User Account");
         add(jLabel2);
-        jLabel2.setBounds(21, 20, 550, 29);
+        jLabel2.setBounds(21, 20, 550, 28);
 
         Back1.setText("<< Back");
         Back1.addActionListener(new java.awt.event.ActionListener() {
@@ -68,11 +89,64 @@ public class AdminUserAccount extends javax.swing.JPanel {
             }
         });
         add(Back1);
-        Back1.setBounds(40, 290, 100, 32);
+        Back1.setBounds(40, 290, 100, 23);
+
+        jTextField1.setText("Switch User to:");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField1);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox1);
+
+        add(jPanel1);
+        jPanel1.setBounds(70, 80, 490, 50);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
-        // TODO add your handling code here:
+        String selectedRole = (String) jComboBox1.getSelectedItem();
+        String currentRole = selecteduseraccount.getRole();
+
+        if(!selectedRole.equals(currentRole)) {
+            Person person = selecteduseraccount.getAssociatedPersonProfile().getPerson();
+            String personId = person.getPersonId();
+
+            if(selectedRole.equals("Student")) {
+                StudentDirectory studentDirectory = business.getStudentDirectory();
+                StudentProfile existingProfile = studentDirectory.findStudent(personId);
+                if(existingProfile == null) {
+                    existingProfile = studentDirectory.newStudentProfile(person);
+                }
+                selecteduseraccount.setProfile(existingProfile);
+                JOptionPane.showMessageDialog(this, "success!");
+
+            } else if(selectedRole.equals("Faculty")) {
+                FacultyDirectory facultyDirectory = business.getFacultyDirectory();
+                FacultyProfile existingProfile = facultyDirectory.findFaculty(personId);
+                if(existingProfile == null) {
+                    existingProfile = facultyDirectory.newFacultyProfile(person);
+                }
+                selecteduseraccount.setProfile(existingProfile);
+                JOptionPane.showMessageDialog(this, "success!");
+
+            } else if(selectedRole.equals("Admin")) {
+                EmployeeDirectory employeeDirectory = business.getEmployeeDirectory();
+                EmployeeProfile existingProfile = employeeDirectory.findEmployee(personId);
+                if(existingProfile == null) {
+                    existingProfile = employeeDirectory.newEmployeeProfile(person);
+                }
+                selecteduseraccount.setProfile(existingProfile);
+                JOptionPane.showMessageDialog(this, "success!");
+            }
+        }
 
         CardSequencePanel.remove(this);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
@@ -87,11 +161,22 @@ public class AdminUserAccount extends javax.swing.JPanel {
 
     }//GEN-LAST:event_Back1ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Back1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
 }
