@@ -34,6 +34,7 @@ public class SocialMedia_Main {
     
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {     
         SocialMedia_Main inst = new SocialMedia_Main();
@@ -96,5 +97,6 @@ public class SocialMedia_Main {
         // TODO
         helper.getAverageLikesPerComments();//Q1
         helper.getMaxLikeCommentPost();//Q2
+        helper.getPostWithMostComments();//Q3
     }
 }
