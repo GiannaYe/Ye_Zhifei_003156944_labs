@@ -49,7 +49,7 @@ public class AnalysisHelper {
 
         int postId = commentWithMaxLikes.getPostId();
 
-        System.out.println("Q2 - post with most likes per comment " + data.getPosts().get(postId).toString());
+        System.out.println("Q2 - post with most likes per comment :" + commentWithMaxLikes.getLikes());
     }
 
     public void getPostWithMostComments() {
@@ -65,7 +65,7 @@ public class AnalysisHelper {
             }
         }
 
-        System.out.println("Q3 - post with most comments " + postWithMostComments.getComments().size());
+        System.out.println("Q3 - post with most comments :" + postWithMostComments.getComments().size());
     }
 
     public void getPassiveUsers() {
