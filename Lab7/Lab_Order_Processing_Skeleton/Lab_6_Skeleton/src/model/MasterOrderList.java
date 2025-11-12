@@ -17,4 +17,8 @@ public class MasterOrderList {
         orderList = new ArrayList<>();
     }
     
+    public void addNewOrder(Order order) {
+        this.orderList.add(order);
+    }
+    
 }

@@ -10,8 +10,9 @@ import java.util.ArrayList;
  *
  * @author yzf01
  */
-class Order {
+public class Order {
     ArrayList<OrderItem> orderItemList;
+
     public Order() {
         this.orderItemList = new ArrayList<>();
     }
@@ -29,4 +30,21 @@ class Order {
         orderItemList.add(orderItem);
         
     }
+
+    public OrderItem findProduct(Product product) {
+        // Search through the order's orderItemList to find if this product already exists
+        for (OrderItem orderItem : orderItemList) {
+            // Compare products by model number
+            if (orderItem.getProduct().getModelNumber() == product.getModelNumber()) {
+                return orderItem; // Found existing item in cart
+            }
+        }
+        return null; // Product not in cart yet
+    }
+
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItemList.remove(orderItem);
+    }
+
+
 }

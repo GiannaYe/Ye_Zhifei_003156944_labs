@@ -6,6 +6,7 @@ package ui.CustomerRole;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import model.OrderItem;
 
 /**
  *
@@ -13,13 +14,25 @@ import javax.swing.JPanel;
  */
 public class ViewOrderItemDetailJPanel extends javax.swing.JPanel {
 
-    
+    JPanel userProcessContainer;
+    OrderItem orderItem;
+
     /**
      * Creates new form ViewOrderItemDetailJPanel
      */
-    public ViewOrderItemDetailJPanel() {
+    public ViewOrderItemDetailJPanel(JPanel userProcessContainer, OrderItem orderItem) {
         initComponents();
-        
+        this.userProcessContainer = userProcessContainer;
+        this.orderItem = orderItem;
+        populateOrderItemDetails();
+    }
+
+    private void populateOrderItemDetails() {
+        txtProductName.setText(orderItem.getProduct().getProdName());
+        txtProductId.setText(String.valueOf(orderItem.getProduct().getModelNumber()));
+        txtSalesPrice.setText(String.valueOf(orderItem.getSalesPrice()));
+        txtQuantity.setText(String.valueOf(orderItem.getQuantity()));
+        txtTotal.setText(String.valueOf(orderItem.getQuantity() * orderItem.getSalesPrice()));
     }
 
     /**
@@ -144,7 +157,9 @@ public class ViewOrderItemDetailJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
